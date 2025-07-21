@@ -91,9 +91,9 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', function() {
         const navbar = document.querySelector('.navbar');
         if (window.scrollY > 50) {
-            navbar.style.background = 'rgba(255, 182, 193, 0.98)';
+            navbar.style.background = '#0F0F0F';
         } else {
-            navbar.style.background = 'rgba(255, 182, 193, 0.95)';
+            navbar.style.background = '#0F0F0F';
         }
     });
 
@@ -203,3 +203,282 @@ document.head.appendChild(style);
     }
     
     initTypewriterAnimation();
+
+// Hero Carousel Functionality
+let currentHeroSlideIndex = 0;
+const heroSlides = document.querySelectorAll('.hero-carousel .carousel-slide');
+const heroDots = document.querySelectorAll('.hero-carousel .dot');
+
+function showHeroSlide(index) {
+    // Hide all slides
+    heroSlides.forEach(slide => slide.classList.remove('active'));
+    heroDots.forEach(dot => dot.classList.remove('active'));
+    
+    // Show current slide
+    if (heroSlides[index]) {
+        heroSlides[index].classList.add('active');
+        heroDots[index].classList.add('active');
+    }
+}
+
+function moveHeroCarousel(direction) {
+    currentHeroSlideIndex += direction;
+    
+    if (currentHeroSlideIndex >= heroSlides.length) {
+        currentHeroSlideIndex = 0;
+    } else if (currentHeroSlideIndex < 0) {
+        currentHeroSlideIndex = heroSlides.length - 1;
+    }
+    
+    showHeroSlide(currentHeroSlideIndex);
+}
+
+function currentHeroSlide(index) {
+    currentHeroSlideIndex = index - 1;
+    showHeroSlide(currentHeroSlideIndex);
+}
+
+// Auto-advance hero carousel every 4 seconds
+let heroCarouselInterval = setInterval(() => {
+    moveHeroCarousel(1);
+}, 4000);
+
+// Pause auto-advance on hover
+const heroCarousel = document.querySelector('.hero-carousel');
+if (heroCarousel) {
+    heroCarousel.addEventListener('mouseenter', () => {
+        clearInterval(heroCarouselInterval);
+    });
+    
+    heroCarousel.addEventListener('mouseleave', () => {
+        heroCarouselInterval = setInterval(() => {
+            moveHeroCarousel(1);
+        }, 4000);
+    });
+}
+
+// Initialize hero carousel when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    if (heroSlides.length > 0) {
+        showHeroSlide(0);
+    }
+});
+
+// Photo Slider Functionality
+let slideIndex = 1;
+
+function changeSlide(n) {
+    showSlide(slideIndex += n);
+}
+
+function currentSlide(n) {
+    showSlide(slideIndex = n);
+}
+
+function showSlide(n) {
+    let slides = document.getElementsByClassName('slide');
+    let dots = document.getElementsByClassName('dot');
+    
+    if (n > slides.length) { slideIndex = 1; }
+    if (n < 1) { slideIndex = slides.length; }
+    
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].classList.remove('active');
+    }
+    
+    for (let i = 0; i < dots.length; i++) {
+        dots[i].classList.remove('active');
+    }
+    
+    if (slides[slideIndex - 1]) {
+        slides[slideIndex - 1].classList.add('active');
+    }
+    
+    if (dots[slideIndex - 1]) {
+        dots[slideIndex - 1].classList.add('active');
+    }
+}
+
+// Auto-advance slider every 5 seconds
+setInterval(() => {
+    changeSlide(1);
+}, 5000);
+
+
+// Lightbox Functionality
+let currentLightboxIndex = 0;
+const lightboxSlides = document.querySelectorAll('.lightbox-slide');
+const lightboxDots = document.querySelectorAll('.lightbox-dot');
+const lightboxImages = [
+    'assets/IMG_9719.jpeg',
+    'assets/IMG_9722.jpeg',
+    'assets/IMG_9725.jpeg'
+];
+
+function openLightbox(slideIndex) {
+    currentLightboxIndex = slideIndex;
+    document.getElementById('lightboxModal').style.display = 'block';
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    showLightboxSlide(currentLightboxIndex);
+    updateLightboxCounter();
+}
+
+function closeLightbox() {
+    document.getElementById('lightboxModal').style.display = 'none';
+    document.body.style.overflow = 'auto'; // Restore scrolling
+}
+
+function changeLightboxSlide(direction) {
+    currentLightboxIndex += direction;
+    if (currentLightboxIndex >= lightboxSlides.length) {
+        currentLightboxIndex = 0;
+    }
+    if (currentLightboxIndex < 0) {
+        currentLightboxIndex = lightboxSlides.length - 1;
+    }
+    showLightboxSlide(currentLightboxIndex);
+    updateLightboxCounter();
+}
+
+function currentLightboxSlide(slideIndex) {
+    currentLightboxIndex = slideIndex - 1;
+    showLightboxSlide(currentLightboxIndex);
+    updateLightboxCounter();
+}
+
+function showLightboxSlide(slideIndex) {
+    // Hide all lightbox slides
+    lightboxSlides.forEach(slide => {
+        slide.classList.remove('active');
+    });
+    
+    // Hide all lightbox dots
+    lightboxDots.forEach(dot => {
+        dot.classList.remove('active');
+    });
+    
+    // Show current lightbox slide and dot
+    if (lightboxSlides[slideIndex]) {
+        lightboxSlides[slideIndex].classList.add('active');
+    }
+    if (lightboxDots[slideIndex]) {
+        lightboxDots[slideIndex].classList.add('active');
+    }
+}
+
+function updateLightboxCounter() {
+    const counterText = document.getElementById('lightbox-counter-text');
+    if (counterText) {
+        counterText.textContent = `${currentLightboxIndex + 1} / ${lightboxSlides.length}`;
+    }
+}
+
+// Close lightbox when clicking outside the image
+document.getElementById('lightboxModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeLightbox();
+    }
+});
+
+// Keyboard navigation for lightbox
+document.addEventListener('keydown', function(e) {
+    if (document.getElementById('lightboxModal').style.display === 'block') {
+        if (e.key === 'ArrowLeft') {
+            changeLightboxSlide(-1);
+        } else if (e.key === 'ArrowRight') {
+            changeLightboxSlide(1);
+        } else if (e.key === 'Escape') {
+            closeLightbox();
+        }
+    }
+});
+
+// Touch/swipe support for mobile
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.getElementById('lightboxModal').addEventListener('touchstart', function(e) {
+    touchStartX = e.changedTouches[0].screenX;
+});
+
+document.getElementById('lightboxModal').addEventListener('touchend', function(e) {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+});
+
+function handleSwipe() {
+    const swipeThreshold = 50;
+    const swipeDistance = touchEndX - touchStartX;
+    
+    if (Math.abs(swipeDistance) > swipeThreshold) {
+        if (swipeDistance > 0) {
+            // Swipe right - go to previous image
+            changeLightboxSlide(-1);
+        } else {
+            // Swipe left - go to next image
+            changeLightboxSlide(1);
+        }
+    }
+}
+
+// Individual Image Zoom Functionality
+function openImageZoom(imageSrc) {
+    const modal = document.getElementById('imageZoomModal');
+    const zoomedImage = document.getElementById('zoomedImage');
+    
+    zoomedImage.src = imageSrc;
+    modal.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeImageZoom() {
+    const modal = document.getElementById('imageZoomModal');
+    modal.style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+// Close zoom when clicking outside the image
+document.addEventListener('DOMContentLoaded', function() {
+    const zoomModal = document.getElementById('imageZoomModal');
+    if (zoomModal) {
+        zoomModal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeImageZoom();
+            }
+        });
+    }
+});
+
+// Add keyboard support for individual zoom
+document.addEventListener('keydown', function(e) {
+    const zoomModal = document.getElementById('imageZoomModal');
+    if (zoomModal && zoomModal.style.display === 'block') {
+        if (e.key === 'Escape') {
+            closeImageZoom();
+        }
+    }
+});
+
+// Concept Photos functionality
+function showConceptPhotos(concept) {
+    // Hide all concept photo sets
+    const allPhotos = document.querySelectorAll('.concept-photos');
+    allPhotos.forEach(photos => {
+        photos.classList.remove('active');
+    });
+    
+    // Remove active class from all buttons
+    const allButtons = document.querySelectorAll('.concept-btn');
+    allButtons.forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // Show selected concept photos
+    const selectedPhotos = document.getElementById(concept + '-photos');
+    if (selectedPhotos) {
+        selectedPhotos.classList.add('active');
+    }
+    
+    // Add active class to clicked button
+    event.target.classList.add('active');
+}

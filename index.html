@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body>
+<body class="home-page">
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
@@ -20,6 +20,9 @@
                 <a href="music.html" class="nav-link">Music</a>
                 <a href="merch.html" class="nav-link">Merch</a>
                 <a href="press.html" class="nav-link">Press</a>
+                <a href="gallery.html" class="nav-link">Gallery</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+
             </div>
             <div class="nav-toggle" id="nav-toggle">
                 <span class="bar"></span>
@@ -33,27 +36,106 @@
         <section class="hero">
             <div class="hero-container">
                 <div class="hero-content">
-                    <h1 class="hero-title">
-                        <span class="typewriter-text" id="typewriter-text"></span>
-                        <span class="typewriter-cursor"></span>
-                    </h1>
-                    <p class="hero-subtitle">Powerhouse Disco-Pop Vocalist</p>
-                    <div class="hero-bio">
-                        <p>REBELLE is a powerhouse disco-pop vocalist from LA with glittering, emotionally charged anthems and bold glam energy. A rising force in the pop scene, her singles 'Break Me', 'Eternity', and 'Taboo' have lit up stages from LA to Europe.</p>
-                    </div>
-                    <div class="hero-buttons">
-                        <a href="#eternity-video" class="btn btn-primary">Watch Eternity</a>
-                        <a href="music.html" class="btn btn-secondary">Listen Now</a>
-                    </div>
-                </div>
-                <div class="hero-image-card">
-                    <div class="image-card">
-                        <img src="assets/rebelle.jpg" alt="REBELLE">
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Photo Slider and About Section -->
+        <section class="photo-about-section">
+            <div class="photo-about-container">
+                <!-- Photo Slider -->
+                <div class="slider-container">
+                    <div class="slider">
+                        <div class="slide active">
+                            <img src="assets/IMG_9719.jpeg" alt="Photo 1" onclick="openLightbox(0)">
+                        </div>
+                        <div class="slide">
+                            <img src="assets/IMG_9722.jpeg" alt="Photo 2" onclick="openLightbox(1)">
+                        </div>
+                        <div class="slide">
+                            <img src="assets/IMG_9725.jpeg" alt="Photo 3" onclick="openLightbox(2)">
+                        </div>
+                        <button class="slider-btn prev-btn" onclick="changeSlide(-1)">❮</button>
+                        <button class="slider-btn next-btn" onclick="changeSlide(1)">❯</button>
+                        <div class="slider-dots">
+                            <span class="dot active" onclick="currentSlide(1)"></span>
+                            <span class="dot" onclick="currentSlide(2)"></span>
+                            <span class="dot" onclick="currentSlide(3)"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Lightbox Modal -->
+                <div id="lightboxModal" class="lightbox-modal">
+                    <div class="lightbox-content">
+                        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+                        <div class="lightbox-slider">
+                            <div class="lightbox-slide active">
+                                <img src="assets/IMG_9719.jpeg" alt="Photo 1">
+                            </div>
+                            <div class="lightbox-slide">
+                                <img src="assets/IMG_9722.jpeg" alt="Photo 2">
+                            </div>
+                            <div class="lightbox-slide">
+                                <img src="assets/IMG_9725.jpeg" alt="Photo 3">
+                            </div>
+                            <button class="lightbox-btn lightbox-prev" onclick="changeLightboxSlide(-1)">❮</button>
+                            <button class="lightbox-btn lightbox-next" onclick="changeLightboxSlide(1)">❯</button>
+                        </div>
+                        <div class="lightbox-dots">
+                            <span class="lightbox-dot active" onclick="currentLightboxSlide(1)"></span>
+                            <span class="lightbox-dot" onclick="currentLightboxSlide(2)"></span>
+                            <span class="lightbox-dot" onclick="currentLightboxSlide(3)"></span>
+                        </div>
+                        <div class="lightbox-counter">
+                            <span id="lightbox-counter-text">1 / 3</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Description Content -->
+                <div class="description-content">
+                    <p>Rebelle is a dynamic and versatile artist who seamlessly blends various musical genres to create a unique sound that resonates with audiences worldwide. With a passion for storytelling through music, Rebelle draws inspiration from personal experiences and social issues, crafting songs that are both emotionally powerful and thought-provoking.</p>
+                    <p>Known for captivating live performances and a distinctive vocal style, Rebelle has quickly gained recognition in the music industry. Each song is a journey that invites listeners to explore themes of love, resilience, and self-discovery, making Rebelle's music both relatable and inspiring.</p>
+                    <p>From intimate acoustic sessions to high-energy performances, Rebelle continues to push creative boundaries while staying true to an authentic artistic vision. The music speaks to the heart and soul, creating connections that transcend traditional genre limitations.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instagram Style Gallery Section -->
+        <section class="instagram-gallery-section">
+            <div class="container">
+                <h2>Rebelle</h2>
+                <p class="gallery-subtitle">Taken by TonyRivas Production</p>
+                <div class="instagram-grid">
+                    <div class="gallery-item large">
+                        <img src="assets/IMG_9735.jpeg" alt="Gallery Photo 1" onclick="openImageZoom('assets/IMG_9735.jpeg')">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="assets/IMG_9734.jpeg" alt="Gallery Photo 2" onclick="openImageZoom('assets/IMG_9734.jpeg')">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="assets/IMG_9733.jpeg" alt="Gallery Photo 3" onclick="openImageZoom('assets/IMG_9733.jpeg')">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="assets/IMG_9732.jpeg" alt="Gallery Photo 4" onclick="openImageZoom('assets/IMG_9732.jpeg')">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="assets/IMG_9726.jpeg" alt="Gallery Photo 5" onclick="openImageZoom('assets/IMG_9726.jpeg')">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Individual Image Zoom Modal -->
+        <div id="imageZoomModal" class="image-zoom-modal">
+            <div class="zoom-content">
+                <span class="zoom-close" onclick="closeImageZoom()">&times;</span>
+                <img id="zoomedImage" src="" alt="Zoomed Image">
+            </div>
+        </div>
         <section id="eternity-video" class="video-section">
             <div class="container">
                 <h2>Latest Music Video: <span class="pink-text">Eternity</span></h2>
@@ -85,18 +167,64 @@
                 </div>
                 <div class="bts-gallery">
                     <h2>Behind the Scenes</h2>
+                    <p class="gallery-subtitle">Photos by Starry Sidewalk</p>
                     <div class="gallery-grid">
                         <div class="gallery-item">
-                            <img src="assets/bts.jpeg" alt="Behind the scenes 1">
+                            <img src="assets/bts/IMG_0734.jpeg" alt="Behind the scenes 1" onclick="openImageZoom(this.src)">
                         </div>
                         <div class="gallery-item">
-                            <img src="assets/bts1.jpeg" alt="Behind the scenes 2">
+                            <img src="assets/bts/IMG_0735.jpeg" alt="Behind the scenes 2" onclick="openImageZoom(this.src)">
                         </div>
                         <div class="gallery-item">
-                            <img src="assets/bts2.jpeg" alt="Behind the scenes 3">
+                            <img src="assets/bts/IMG_0745.jpeg" alt="Behind the scenes 3" onclick="openImageZoom(this.src)">
                         </div>
                         <div class="gallery-item">
-                            <img src="assets/bts3.jpeg" alt="Behind the scenes 4">
+                            <img src="assets/bts/IMG_0783.jpeg" alt="Behind the scenes 4" onclick="openImageZoom(this.src)">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="assets/bts/IMG_0808.jpeg" alt="Behind the scenes 5" onclick="openImageZoom(this.src)">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="assets/bts/IMG_0827.jpeg" alt="Behind the scenes 6" onclick="openImageZoom(this.src)">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="assets/bts/IMG_0828.jpeg" alt="Behind the scenes 7" onclick="openImageZoom(this.src)">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="assets/bts/IMG_0830.jpeg" alt="Behind the scenes 8" onclick="openImageZoom(this.src)">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="assets/bts/IMG_0839.jpeg" alt="Behind the scenes 9" onclick="openImageZoom(this.src)">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="assets/bts/IMG_0868.jpeg" alt="Behind the scenes 10" onclick="openImageZoom(this.src)">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="assets/bts/IMG_0908.jpeg" alt="Behind the scenes 11" onclick="openImageZoom(this.src)">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="assets/bts/IMG_0924.jpeg" alt="Behind the scenes 12" onclick="openImageZoom(this.src)">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="assets/bts/IMG_0934.jpeg" alt="Behind the scenes 13" onclick="openImageZoom(this.src)">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="assets/bts/IMG_0938.jpeg" alt="Behind the scenes 14" onclick="openImageZoom(this.src)">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="assets/bts/IMG_0939.jpeg" alt="Behind the scenes 15" onclick="openImageZoom(this.src)">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="assets/bts/IMG_0982.jpeg" alt="Behind the scenes 16" onclick="openImageZoom(this.src)">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="assets/bts/IMG_3217.jpeg" alt="Behind the scenes 17" onclick="openImageZoom(this.src)">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="assets/bts/IMG_3330.jpeg" alt="Behind the scenes 18" onclick="openImageZoom(this.src)">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="assets/bts/IMG_3355.jpeg" alt="Behind the scenes 19" onclick="openImageZoom(this.src)">
                         </div>
                     </div>
                 </div>
