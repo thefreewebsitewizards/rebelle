@@ -7,6 +7,403 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Chivo:wght@400;700;900&family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Gallery-specific styles */
+        .gallery-hero {
+            margin-top: 50px;
+            padding: 3rem 0 1rem;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.8);
+            color: #8b008b;
+        }
+        
+        .gallery-hero h1 {
+            font-family: 'Chivo', sans-serif;
+            font-size: 3rem;
+            font-weight: 900;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+        
+        .gallery-section {
+            padding: 60px 0;
+            background: #f8f8f8;
+        }
+        
+        .gallery-section:nth-child(even) {
+            background: #B64D6B;
+        }
+        
+        .section-title {
+            font-family: 'Chivo', sans-serif;
+            font-weight: 900;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #1a1a1a;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .image-grid {
+            display: flex;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            height: 400px;
+        }
+        
+        .main-image {
+            flex: 1;
+            height: 100%;
+        }
+        
+        .side-images {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            height: 100%;
+        }
+        
+        .side-image {
+            flex: 1;
+            height: calc((100% - 40px) / 3);
+        }
+        
+        .taboo-grid {
+            display: block;
+            max-width: 600px;
+            height: auto;
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .gallery-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .category-nav {
+            padding: 40px 0;
+            background: #1a1a1a;
+            top: 0;
+            z-index: 100;
+            font-family: 'Open Sans', "Roboto", sans-serif;
+            font-weight: bold;
+        }
+        
+        .category-buttons {
+            display: flex;
+            gap: 15px;
+            padding: 0 90px;
+            justify-content: center;
+            flex-wrap: wrap;
+            font-family: 'Open Sans', "Roboto", sans-serif;
+            font-weight: bold;
+        }
+        
+        .category-btn {
+            background: transparent;
+            border: 2px solid #fff;
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            font-family: 'Open Sans', "Roboto", sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background: #fff;
+            color: #1a1a1a;
+        }
+        
+        .filtered-gallery {
+            padding: 60px 0;
+            background: white;
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .view-toggle {
+            text-align: center;
+            margin-top: 40px;
+            font-family: 'Open Sans', "Roboto", sans-serif;
+            font-weight: bold;
+        }
+        
+        .view-btn {
+            background: #1a1a1a;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-family: 'Open Sans', "Roboto", sans-serif;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background 0.3s ease;
+        }
+        
+        .view-btn:hover {
+            background: #333;
+        }
+
+        /* Centralized Lightbox Styles */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .lightbox.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 80vh;
+            overflow: hidden;
+        }
+
+        .lightbox-img,
+        .lightbox-video {
+            max-width: 100%;
+            max-height: 80vh;
+            display: none;
+            border-radius: 8px;
+        }
+
+        .lightbox-img.active,
+        .lightbox-video.active {
+            display: block;
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+            z-index: 2001;
+            background: none;
+            border: none;
+            padding: 10px;
+            line-height: 1;
+        }
+
+        .lightbox-close:hover {
+            color: #ccc;
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .lightbox-prev,
+        .lightbox-next {
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 10px;
+        }
+
+        .lightbox-prev:hover,
+        .lightbox-next:hover {
+            color: #ccc;
+        }
+        
+        /* Full-width container centered */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* New grid layout for TBDD, Eternity, and Break Me sections */
+        .image-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr; /* Main image takes 2 columns, others take 1 each */
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+            height: 400px;
+        }
+        
+        /* Standard image styling */
+        .image-column {
+            height: 100%;
+        }
+        
+        .image-column img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        /* Hover effect */
+        .image-column img:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .image-row {
+        grid-template-columns: 1fr 1fr 1fr; /* Set up a 3-column layout */
+        grid-template-rows: 1fr 1fr; /* Make the rows flexible */
+        gap: 15px;
+    }
+
+    /* Ensure the main image takes the first row */
+    .image-column:first-child {
+        grid-column: 1 / -1; /* Span across the entire row */
+    }
+
+    .image-column:not(:first-child) {
+        grid-row: 2;
+    }
+
+    /* Make sure side images stack under the main image */
+    .side-images-mobile {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 10px;
+    }
+        }
+        
+        @media (max-width: 768px) {
+            .gallery-section {
+                padding: 60px 0;
+                background: #f8f8f8;
+                height: auto; /* Ensure sections adjust their height */
+            }
+            
+            .image-grid {
+                height: auto; /* Allow the grid to grow according to the content */
+            }
+        
+            .image-row {
+                height: auto; /* Remove fixed height and allow the content to fit */
+            }
+
+            .main-image {
+                height: auto; /* Ensure the main image adjusts its height */
+                max-height: 300px; /* Set max-height if needed to avoid too large images */
+            }
+
+            .side-images {
+                height: auto; /* Allow the side images to fit naturally */
+            }
+
+            .side-image {
+                height: auto; /* Ensure side images don't overflow */
+            }
+
+            .taboo-grid {
+                height: auto; /* Allow the grid to grow based on the content */
+            }
+
+            .gallery-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .image-grid {
+                flex-direction: column;
+                height: auto;
+            }
+            
+            .main-image {
+                height: 300px;
+                margin-bottom: 20px;
+            }
+            
+            .side-images {
+                flex-direction: row;
+                height: 150px;
+            }
+            
+            .side-image {
+                height: 100%;
+                width: calc((100% - 40px) / 3);
+            }
+            
+            .category-nav {
+                position: relative;
+            }
+            
+            .category-buttons {
+                overflow-x: auto;
+                justify-content: flex-start;
+                flex-wrap: nowrap;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                -ms-overflow-style: none;
+            }
+            
+            .category-buttons::-webkit-scrollbar {
+                display: none;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -14,14 +411,14 @@
             <div class="nav-logo">
                 <h1>REBELLE</h1>
             </div>
-            <div class="nav-menu" id="nav-menu">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="about.html" class="nav-link">About</a>
-                <a href="music.html" class="nav-link">Music</a>
-                <a href="merch.html" class="nav-link">Merch</a>
-                <a href="press.html" class="nav-link">Press</a>
-                <a href="gallery.html" class="nav-link active">Gallery</a>
-                <a href="contact.html" class="nav-link">Contact</a>
+             <div class="nav-menu" id="nav-menu">
+                <a href="index.html" class="nav-link">HOME</a>
+                <a href="about.html" class="nav-link">ABOUT</a>
+                <a href="music.html" class="nav-link">MUSIC</a>
+                <a href="merch.html" class="nav-link">MERCH</a>
+                <a href="press.html" class="nav-link">PRESS</a>
+                <a href="gallery.html" class="nav-link active">GALLERY</a>
+                <a href="contact.html" class="nav-link">CONTACT</a>
             </div>
             <div class="nav-toggle" id="nav-toggle">
                 <span class="bar"></span>
@@ -32,275 +429,134 @@
     </nav>
 
     <main>
+        <!-- Hero Section -->
         <section class="gallery-hero">
             <div class="container">
-                <h1>The Diva Files</h1>
+                <h1>THE DIVA FILES</h1>
             </div>
         </section>
 
-            <div class="masonry-gallery">
-                <div class="masonry-item">
-                    <img src="assets/music/DSC07658.jpeg" alt="Diva Files 1" onclick="openImageZoom(this.src)">
+        <!-- TBDD Section -->
+        <section class="gallery-section">
+            <div class="container">
+                <h2 class="section-title">TBDD ('Till the Beat Drops Down)</h2>
+                <div class="image-grid">
+                    <div class="image-row">
+                        <div class="image-column">
+                            <img src="assets/tbdd.jpg" alt="TBDD Main" class="gallery-image">
+                        </div>
+                        <div class="image-column">
+                            <img src="assets/tbdd (1).jpeg" alt="TBDD 1" class="gallery-image">
+                        </div>
+                        <div class="image-column">
+                            <img src="assets/tbdd (2).jpeg" alt="TBDD 2" class="gallery-image">
+                        </div>
+                        <div class="image-column">
+                            <img src="assets/tbdd (3).jpeg" alt="TBDD 3" class="gallery-image">
+                        </div>
+                    </div>
                 </div>
-                <div class="masonry-item">
-                    <img src="assets/music/2765.jpeg" alt="Diva Files 2" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_9540.jpeg" alt="Diva Files 3" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/2024_08_29_Rebelle-34.jpeg" alt="Diva Files 4" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/2024_08_29_Rebelle-121.jpeg" alt="Diva Files 5" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/629A87AE-D0C2-40EC-9F2F-23903D9830F3.jpeg" alt="Diva Files 6" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/DSC01361.jpeg" alt="Diva Files 7" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/DSC05442.jpeg" alt="Diva Files 8" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/DSC05439.jpeg" alt="Diva Files 9" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_0282.png" alt="Diva Files 10" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_0500.jpeg" alt="Diva Files 11" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_7213.jpeg" alt="Diva Files 12" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/L, D, J, R.jpeg" alt="Diva Files 13" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_8172.jpeg" alt="Diva Files 14" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_7831.jpeg" alt="Diva Files 15" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/Rebelle_03.jpeg" alt="Diva Files 16" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/Rebelle_15.jpeg" alt="Diva Files 17" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_2366.jpeg" alt="Diva Files 18" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_3154.jpeg" alt="Diva Files 19" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_7288.jpeg" alt="Diva Files 20" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_1025.jpeg" alt="Diva Files 21" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/DSC07661.jpeg" alt="Diva Files 22" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/2769.jpeg" alt="Diva Files 23" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/2024_08_29_Rebelle-43.jpeg" alt="Diva Files 24" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/2024_08_29_Rebelle-39.jpeg" alt="Diva Files 25" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/2024_08_29_Rebelle-152.jpeg" alt="Diva Files 26" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/DSC03841.jpeg" alt="Diva Files 27" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/DSC01373.jpeg" alt="Diva Files 28" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/DSC05445.jpeg" alt="Diva Files 29" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/DSC05500.jpeg" alt="Diva Files 30" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_0283.png" alt="Diva Files 31" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_0506.jpeg" alt="Diva Files 32" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_7226.jpeg" alt="Diva Files 33" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/r film dark 3.jpeg" alt="Diva Files 34" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_8586.jpeg" alt="Diva Files 35" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_7833.jpeg" alt="Diva Files 36" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_8235.jpeg" alt="Diva Files 37" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/Rebelle_29.jpeg" alt="Diva Files 38" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_7269.jpeg" alt="Diva Files 39" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_5333.jpeg" alt="Diva Files 40" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_9063.jpeg" alt="Diva Files 41" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_5319.jpeg" alt="Diva Files 42" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/DSC07664.jpeg" alt="Diva Files 43" onclick="openImageZoom(this.src)">
+            </div>
+        </section>
 
+        <!-- Taboo Section -->
+        <section class="gallery-section">
+            <div class="container">
+                <h2 class="section-title">Taboo</h2>
+                <div class="image-grid taboo-grid">
+                    <div>
+                        <img src="assets/taboo.jpg" alt="Taboo" class="gallery-image" onclick="openImageZoom(this.src)">
+                    </div>
                 </div>
-                <div class="masonry-item">
-                    <img src="assets/music/2774.jpeg" alt="Diva Files 44" onclick="openImageZoom(this.src)">
+            </div>
+        </section>
+
+        <!-- Eternity Section -->
+        <section class="gallery-section">
+            <div class="container">
+                <h2 class="section-title">Eternity</h2>
+                <div class="image-grid">
+                    <div class="image-row">
+                        <div class="image-column">
+                            <img src="assets/eternity.jpg" alt="Eternity Main" class="gallery-image">
+                        </div>
+                        <div class="image-column">
+                            <img src="assets/IMG_8501 (1).jpg" alt="Eternity 1" class="gallery-image">
+                        </div>
+                        <div class="image-column">
+                            <img src="assets/IMG_8502 (1).jpg" alt="Eternity 2" class="gallery-image">
+                        </div>
+                        <div class="image-column">
+                            <img src="assets/IMG_8504 (1).jpg" alt="Eternity 3" class="gallery-image">
+                        </div>
+                    </div>
                 </div>
-                <div class="masonry-item">
-                    <img src="assets/music/2024_08_29_Rebelle-76.jpeg" alt="Diva Files 45" onclick="openImageZoom(this.src)">
+            </div>
+        </section>
+
+        <!-- Break Me Section -->
+        <section class="gallery-section">
+            <div class="container">
+                <h2 class="section-title">Break Me</h2>
+                <div class="image-grid">
+                    <div class="image-row">
+                        <div class="image-column">
+                            <img src="assets/breakme.jpg" alt="Break Me Main" class="gallery-image">
+                        </div>
+                        <div class="image-column">
+                            <img src="assets/IMG_3926.jpeg" alt="Break Me 1" class="gallery-image">
+                        </div>
+                        <div class="image-column">
+                            <img src="assets/IMG_3619.jpeg" alt="Break Me 2" class="gallery-image">
+                        </div>
+                        <div class="image-column">
+                            <img src="assets/IMG_3800.jpeg" alt="Break Me 3" class="gallery-image">
+                        </div>
+                    </div>
                 </div>
-                <div class="masonry-item">
-                    <img src="assets/music/2024_08_29_Rebelle-69.jpeg" alt="Diva Files 46" onclick="openImageZoom(this.src)">
+            </div>
+        </section>
+
+        <!-- Category Navigation -->
+        <section class="category-nav">
+            <div class="container">
+                <div class="category-buttons">
+                    <button class="category-btn active" data-category="all">ALL</button>
+                    <button class="category-btn" data-category="birthday">BIRTHDAY PHOTOSHOOT</button>
+                    <button class="category-btn" data-category="acoustic">ACOUSTIC CONCERT</button>
+                    <button class="category-btn" data-category="npr">NPR MUSIC</button>
+                    <button class="category-btn" data-category="mint">THE MINT LA</button>
+                    <button class="category-btn" data-category="wfnm">WFNM SHOW</button>
+                    <button class="category-btn" data-category="recital">RECITAL</button>
+                    <button class="category-btn" data-category="performance">PERFORMANCE</button>
+                    <button class="category-btn" data-category="rebelle">REBELLE</button>
                 </div>
-                <div class="masonry-item">
-                    <img src="assets/music/3223.jpeg" alt="Diva Files 47" onclick="openImageZoom(this.src)">
+            </div>
+        </section>
+
+        <!-- Filtered Gallery -->
+        <section class="filtered-gallery">
+            <div class="container">
+                <div class="gallery-grid" id="galleryGrid">
+                    <!-- Images will be populated by JavaScript -->
                 </div>
-                <div class="masonry-item">
-                    <img src="assets/music/DSC01435.jpeg" alt="Diva Files 48" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/DSC01384.jpeg" alt="Diva Files 49" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/DSC05465.jpeg" alt="Diva Files 50" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/DSC05506.jpeg" alt="Diva Files 51" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_0284.png" alt="Diva Files 52" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_0510.jpeg" alt="Diva Files 53" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_7219.jpeg" alt="Diva Files 54" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/r sign 2.jpeg" alt="Diva Files 55" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_8720.jpeg" alt="Diva Files 56" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_8583.jpeg" alt="Diva Files 57" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_5594.jpeg" alt="Diva Files 58" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_8502.jpeg" alt="Diva Files 59" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_7216.jpeg" alt="Diva Files 60" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_5987.jpeg" alt="Diva Files 61" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_5786.jpeg" alt="Diva Files 62" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/26082.jpeg" alt="Diva Files 63" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/DSC07672.jpeg" alt="Diva Files 64" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/3197.jpeg" alt="Diva Files 65" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/2024_08_29_Rebelle-100.jpeg" alt="Diva Files 66" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/2024_08_29_Rebelle-116.jpeg" alt="Diva Files 67" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/band 1.jpeg" alt="Diva Files 68" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_0829.jpeg" alt="Diva Files 69" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/DSC01411.jpeg" alt="Diva Files 70" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/DSC05483.jpeg" alt="Diva Files 71" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/DSC05512.jpeg" alt="Diva Files 72" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_0285.png" alt="Diva Files 73" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_0521.jpeg" alt="Diva Files 74" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_7220.jpeg" alt="Diva Files 75" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/r straight arm (d).jpeg" alt="Diva Files 76" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_8720.jpeg" alt="Diva Files 77" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_8584.jpeg" alt="Diva Files 78" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_5644.jpeg" alt="Diva Files 79" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_7868.jpeg" alt="Diva Files 80" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_7267.jpeg" alt="Diva Files 81" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/IMG_5988.jpeg" alt="Diva Files 82" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/img_3815.jpeg" alt="Diva Files 83" onclick="openImageZoom(this.src)">
-                </div>
-                <div class="masonry-item">
-                    <img src="assets/music/DSC05510.jpeg" alt="Diva Files 84" onclick="openImageZoom(this.src)">
+                <div class="view-toggle">
+                    <button class="view-btn" id="viewToggleBtn" onclick="toggleView()">View All</button>
                 </div>
             </div>
         </section>
     </main>
-
-    <!-- Individual Image Zoom Modal -->
-    <div id="imageZoomModal" class="image-zoom-modal">
-        <div class="zoom-content">
-            <span class="zoom-close" onclick="closeImageZoom()">&times;</span>
-            <img id="zoomedImage" src="" alt="Zoomed Image">
+    
+    <!-- Centralized Lightbox -->
+    <div class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <div class="lightbox-content">
+            <img src="" alt="" class="lightbox-img">
+            <video src="" class="lightbox-video" controls></video>
+        </div>
+        <div class="lightbox-nav">
+            <span class="lightbox-prev"><i class="fas fa-chevron-left"></i></span>
+            <span class="lightbox-next"><i class="fas fa-chevron-right"></i></span>
         </div>
     </div>
 
@@ -321,12 +577,248 @@
                 <a href="https://thesocialcat.com/profile/rebellemusic" target="_blank"><i class="fas fa-cat"></i></a>
                 <a href="https://api.soundsplore.com/app/1598/artist/1255" target="_blank"><i class="fas fa-music"></i></a>
                 <a href="https://music.apple.com/us/artist/rebelle/1700253905" target="_blank"><i class="fab fa-apple"></i></a>
-                <a href="https://open.spotify.com/artist/0zd05cxkyyEojQXvV1JFEA?si=Rptf9IfcQvmnMei1TCHs5Q" target="_blank"><i class="fab fa-spotify"></i></a>
+                <a href="https://open.spotify.com/us/artist/0zd05cxkyyEojQXvV1JFEA?si=Rptf9IfcQvmnMei1TCHs5Q" target="_blank"><i class="fab fa-spotify"></i></a>
                 <a href="https://linktr.ee/rebelle_music" target="_blank"><i class="fas fa-link"></i></a>
             </div>
         </div>
+        <p class="credits">Built by <a href="https://thefreewebsitewizards.com/?fbclid=PAZXh0bgNhZW0CMTEAAad0Jm-GNlXnPPJ1LVG1DBVBoUGdRHC5m3FFwUqGHjUfujAnDPDhsINN8mAv1A_aem_owWh2qpkEErFPYCqV9cPEg" target="_blank">The Free Website Wizards</a></p>
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // Gallery data structure
+        const galleryData = {
+            all: [], // Will be populated with all images from other categories
+            birthday: [
+                'assets/IMG_9726.jpeg', 'assets/IMG_9732.jpeg', 'assets/IMG_9733.jpeg', 
+                'assets/IMG_9734.jpeg', 'assets/IMG_9735.jpeg', 'assets/rebelle.jpg'
+            ],
+            acoustic: [
+                'assets/LA (1).jpeg', 'assets/LA (2).jpeg', 'assets/LA (3).jpeg', 'assets/LA (4).jpeg',
+                'assets/LA (5).jpeg', 'assets/LA (6).jpeg', 'assets/LA (7).jpeg', 'assets/LA (8).jpeg',
+                'assets/LA (9).jpeg', 'assets/LA (10).jpeg', 'assets/LA (11).jpeg', 'assets/LA (12).jpeg'
+            ],
+            npr: [
+                'assets/NPR (1).jpeg', 'assets/NPR (2).jpeg', 'assets/NPR (3).jpeg', 'assets/NPR (4).jpeg',
+                'assets/NPR (5).jpeg', 'assets/NPR (6).jpeg', 'assets/NPR (7).jpeg', 'assets/NPR (8).jpeg',
+                'assets/NPR (9).jpeg'
+            ],
+            mint: [
+                'assets/mint (1).jpeg', 'assets/mint (2).jpeg', 'assets/mint (3).jpeg', 'assets/mint (4).jpeg'
+            ],
+            wfnm: [
+                'assets/wfnm (1).jpeg', 'assets/wfnm (2).jpeg', 'assets/wfnm (3).jpeg', 'assets/wfnm (4).jpeg',
+                'assets/wfnm (5).jpeg'
+            ],
+            recital: [
+                'assets/recital (1).jpeg', 'assets/recital (2).jpeg', 'assets/recital (3).jpeg', 'assets/recital (4).jpeg',
+                'assets/recital (5).jpeg', 'assets/recital (6).jpeg', 'assets/recital (7).jpeg', 'assets/recital (8).jpeg',
+                'assets/recital (9).jpeg', 'assets/recital (10).jpeg', 'assets/recital (11).jpeg', 'assets/recital (12).jpeg',
+                'assets/recital (13).jpeg'
+            ],
+            performance: [
+                'assets/performance (1).jpeg', 'assets/performance (2).jpeg', 'assets/performance (3).jpeg', 'assets/performance (4).jpeg',
+                'assets/performance (5).jpeg', 'assets/performance (6).jpeg', 'assets/performance (7).jpeg', 'assets/performance (1).png',
+                'assets/performance (2).png', 'assets/performance (3).png', 'assets/performance (4).png'
+            ],
+            rebelle: [
+                'assets/rebellee (1).jpeg', 'assets/rebellee (2).jpeg', 'assets/rebellee (3).jpeg', 'assets/rebellee (4).jpeg',
+                'assets/rebellee (5).jpeg', 'assets/rebellee (6).jpeg', 'assets/rebellee (7).jpeg', 'assets/rebellee (8).jpeg',
+                'assets/rebellee (9).jpeg', 'assets/rebellee (10).jpeg', 'assets/rebellee (11).jpeg', 'assets/rebellee (12).jpeg',
+                'assets/rebellee (13).jpeg', 'assets/rebellee (14).jpeg'
+            ]
+        };
+
+        // Populate 'all' category with all images from other categories
+        Object.keys(galleryData).forEach(category => {
+            if (category !== 'all') {
+                galleryData.all = galleryData.all.concat(galleryData[category]);
+            }
+        });
+
+        // Remove duplicates from 'all' category
+        galleryData.all = [...new Set(galleryData.all)];
+
+        let currentCategory = 'all';
+        let showingAll = false;
+
+        // Initialize gallery
+        document.addEventListener('DOMContentLoaded', function() {
+            displayImages('all');
+            setupCategoryButtons();
+        });
+
+        function setupCategoryButtons() {
+            const buttons = document.querySelectorAll('.category-btn');
+            buttons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    buttons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const category = this.dataset.category;
+                    currentCategory = category;
+                    showingAll = false;
+                    displayImages(category);
+                });
+            });
+        }
+
+        function displayImages(category) {
+            const galleryGrid = document.getElementById('galleryGrid');
+            const viewToggleBtn = document.getElementById('viewToggleBtn');
+            const images = galleryData[category] || [];
+            
+            let imagesToShow;
+            if (category === 'all') {
+                imagesToShow = showingAll ? images : images.slice(0, 8);
+                viewToggleBtn.style.display = 'inline-block';
+                viewToggleBtn.textContent = showingAll ? 'View Less' : 'View All';
+            } else {
+                imagesToShow = images;
+                viewToggleBtn.style.display = 'none';
+            }
+            
+            galleryGrid.innerHTML = '';
+            imagesToShow.forEach(imageSrc => {
+                const imageDiv = document.createElement('div');
+                imageDiv.innerHTML = `<img src="${imageSrc}" alt="Gallery Image" class="gallery-image"/>`;
+                galleryGrid.appendChild(imageDiv);
+            });
+            
+            // Reinitialize lightbox after images are loaded
+            setTimeout(() => {
+                initLightbox();
+            }, 100);
+        }
+
+        function toggleView() {
+            if (currentCategory === 'all') {
+                showingAll = !showingAll;
+                displayImages('all');
+            }
+        }
+
+        // Enhanced Centralized Lightbox Functionality
+        function initLightbox() {
+            // Remove existing event listeners to prevent duplicates
+            const existingImages = document.querySelectorAll('.gallery-image');
+            existingImages.forEach(img => {
+                img.replaceWith(img.cloneNode(true));
+            });
+            
+            const galleryImages = document.querySelectorAll('.gallery-image');
+            const lightbox = document.querySelector('.lightbox');
+            const lightboxImg = document.querySelector('.lightbox-img');
+            const lightboxVideo = document.querySelector('.lightbox-video');
+            const lightboxClose = document.querySelector('.lightbox-close');
+            const lightboxPrev = document.querySelector('.lightbox-prev');
+            const lightboxNext = document.querySelector('.lightbox-next');
+            
+            if (!galleryImages.length || !lightbox) return;
+            
+            let currentIndex = 0;
+            const mediaItems = [];
+            
+            // Collect all media items (images and videos)
+            galleryImages.forEach((img, index) => {
+                mediaItems.push({type: 'image', src: img.src, alt: img.alt});
+                
+                // Add click event to open lightbox
+                img.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    currentIndex = index;
+                    updateLightboxMedia();
+                    lightbox.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            // Update lightbox media based on current index
+            function updateLightboxMedia() {
+                const currentItem = mediaItems[currentIndex];
+                
+                if (!currentItem) return;
+                
+                // Reset both media elements
+                lightboxImg.classList.remove('active');
+                if (lightboxVideo) {
+                    lightboxVideo.classList.remove('active');
+                    lightboxVideo.pause();
+                }
+                
+                if (currentItem.type === 'image') {
+                    lightboxImg.src = currentItem.src;
+                    lightboxImg.alt = currentItem.alt;
+                    lightboxImg.classList.add('active');
+                } else if (currentItem.type === 'video' && lightboxVideo) {
+                    lightboxVideo.src = currentItem.src;
+                    lightboxVideo.classList.add('active');
+                    lightboxVideo.play().catch(e => console.log("Video play error:", e));
+                }
+            }
+            
+            // Close lightbox
+            if (lightboxClose) {
+                lightboxClose.addEventListener('click', () => {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                    if (lightboxVideo) {
+                        lightboxVideo.pause();
+                    }
+                });
+            }
+            
+            // Navigate to previous media
+            if (lightboxPrev) {
+                lightboxPrev.addEventListener('click', () => {
+                    currentIndex = (currentIndex - 1 + mediaItems.length) % mediaItems.length;
+                    updateLightboxMedia();
+                });
+            }
+            
+            // Navigate to next media
+            if (lightboxNext) {
+                lightboxNext.addEventListener('click', () => {
+                    currentIndex = (currentIndex + 1) % mediaItems.length;
+                    updateLightboxMedia();
+                });
+            }
+            
+            // Close lightbox when clicking outside the media
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                    if (lightboxVideo) {
+                        lightboxVideo.pause();
+                    }
+                }
+            });
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (!lightbox.classList.contains('active')) return;
+                
+                if (e.key === 'Escape') {
+                    lightbox.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                    if (lightboxVideo) {
+                        lightboxVideo.pause();
+                    }
+                } else if (e.key === 'ArrowLeft') {
+                    currentIndex = (currentIndex - 1 + mediaItems.length) % mediaItems.length;
+                    updateLightboxMedia();
+                } else if (e.key === 'ArrowRight') {
+                    currentIndex = (currentIndex + 1) % mediaItems.length;
+                    updateLightboxMedia();
+                }
+            });
+        }
+
+        // Initialize lightbox when page loads
+        window.addEventListener('load', initLightbox);
+    </script>
 </body>
 </html>

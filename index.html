@@ -15,14 +15,13 @@
                 <h1>REBELLE</h1>
             </div>
             <div class="nav-menu" id="nav-menu">
-                <a href="index.html" class="nav-link active">Home</a>
-                <a href="about.html" class="nav-link">About</a>
-                <a href="music.html" class="nav-link">Music</a>
-                <a href="merch.html" class="nav-link">Merch</a>
-                <a href="press.html" class="nav-link">Press</a>
-                <a href="gallery.html" class="nav-link">Gallery</a>
-                <a href="contact.html" class="nav-link">Contact</a>
-
+                <a href="index.html" class="nav-link active">HOME</a>
+                <a href="about.html" class="nav-link">ABOUT</a>
+                <a href="music.html" class="nav-link">MUSIC</a>
+                <a href="merch.html" class="nav-link">MERCH</a>
+                <a href="press.html" class="nav-link">PRESS</a>
+                <a href="gallery.html" class="nav-link">GALLERY</a>
+                <a href="contact.html" class="nav-link">CONTACT</a>
             </div>
             <div class="nav-toggle" id="nav-toggle">
                 <span class="bar"></span>
@@ -39,12 +38,27 @@
                         </div>
                     </div>
                 </div>
+                <a href="https://distrokid.com/hyperfollow/rebelle2/tbdd" class="floating-btn" target="_blank">TBDD Pre-Save</a>
             </div>
         </section>
 
-        <!-- Photo Slider and About Section -->
+        <section class="about-section-1">
+            <div class="about-container-1">
+                <div class="about-content-1">
+                    <h2>About Me</h2>
+                        <p>Rebelle is a dynamic and versatile artist who seamlessly blends various musical genres to create a unique sound that resonates with audiences worldwide. With a passion for storytelling through music, Rebelle draws inspiration from personal experiences and social issues, crafting songs that are both emotionally powerful and thought-provoking.</p>
+                        <p>Known for captivating live performances and a distinctive vocal style, Rebelle has quickly gained recognition in the music industry. Each song is a journey that invites listeners to explore themes of love, resilience, and self-discovery, making Rebelle's music both relatable and inspiring.</p>
+                        <p>From intimate acoustic sessions to high-energy performances, Rebelle continues to push creative boundaries while staying true to an authentic artistic vision. The music speaks to the heart and soul, creating connections that transcend traditional genre limitations.</p>
+                        <a href="about.html" class="learn-more-btn">Learn More About Me</a>
+                </div>
+            </div>
+        </section>
+    
+        <!-- Photo Slider Section -->
         <section class="photo-about-section">
             <div class="photo-about-container">
+                <h2>Rebelle</h2>
+                <p class="photo-subtitle">Taken by TonyRivas Production</p>
                 <!-- Photo Slider -->
                 <div class="slider-container">
                     <div class="slider">
@@ -57,85 +71,28 @@
                         <div class="slide">
                             <img src="assets/IMG_9725.jpeg" alt="Photo 3" onclick="openLightbox(2)">
                         </div>
+                        <div class="slide">
+                            <img src="assets/IMG_9735.jpeg" alt="Photo 4" onclick="openLightbox(0)">
+                        </div>
+                        <div class="slide">
+                            <img src="assets/IMG_9734.jpeg" alt="Photo 5" onclick="openLightbox(1)">
+                        </div>
+                        <div class="slide">
+                            <img src="assets/IMG_9733.jpeg" alt="Photo 6" onclick="openLightbox(2)">
+                        </div>
+                        <div class="slide">
+                            <img src="assets/IMG_9732.jpeg" alt="Photo 7" onclick="openLightbox(1)">
+                        </div>
+                        <div class="slide">
+                            <img src="assets/IMG_9726.jpeg" alt="Photo 8" onclick="openLightbox(2)">
+                        </div>
                         <button class="slider-btn prev-btn" onclick="changeSlide(-1)">❮</button>
                         <button class="slider-btn next-btn" onclick="changeSlide(1)">❯</button>
-                        <div class="slider-dots">
-                            <span class="dot active" onclick="currentSlide(1)"></span>
-                            <span class="dot" onclick="currentSlide(2)"></span>
-                            <span class="dot" onclick="currentSlide(3)"></span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Lightbox Modal -->
-                <div id="lightboxModal" class="lightbox-modal">
-                    <div class="lightbox-content">
-                        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-                        <div class="lightbox-slider">
-                            <div class="lightbox-slide active">
-                                <img src="assets/IMG_9719.jpeg" alt="Photo 1">
-                            </div>
-                            <div class="lightbox-slide">
-                                <img src="assets/IMG_9722.jpeg" alt="Photo 2">
-                            </div>
-                            <div class="lightbox-slide">
-                                <img src="assets/IMG_9725.jpeg" alt="Photo 3">
-                            </div>
-                            <button class="lightbox-btn lightbox-prev" onclick="changeLightboxSlide(-1)">❮</button>
-                            <button class="lightbox-btn lightbox-next" onclick="changeLightboxSlide(1)">❯</button>
-                        </div>
-                        <div class="lightbox-dots">
-                            <span class="lightbox-dot active" onclick="currentLightboxSlide(1)"></span>
-                            <span class="lightbox-dot" onclick="currentLightboxSlide(2)"></span>
-                            <span class="lightbox-dot" onclick="currentLightboxSlide(3)"></span>
-                        </div>
-                        <div class="lightbox-counter">
-                            <span id="lightbox-counter-text">1 / 3</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Description Content -->
-                <div class="description-content">
-                    <p>Rebelle is a dynamic and versatile artist who seamlessly blends various musical genres to create a unique sound that resonates with audiences worldwide. With a passion for storytelling through music, Rebelle draws inspiration from personal experiences and social issues, crafting songs that are both emotionally powerful and thought-provoking.</p>
-                    <p>Known for captivating live performances and a distinctive vocal style, Rebelle has quickly gained recognition in the music industry. Each song is a journey that invites listeners to explore themes of love, resilience, and self-discovery, making Rebelle's music both relatable and inspiring.</p>
-                    <p>From intimate acoustic sessions to high-energy performances, Rebelle continues to push creative boundaries while staying true to an authentic artistic vision. The music speaks to the heart and soul, creating connections that transcend traditional genre limitations.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Instagram Style Gallery Section -->
-        <section class="instagram-gallery-section">
-            <div class="container">
-                <h2>Rebelle</h2>
-                <p class="gallery-subtitle">Taken by TonyRivas Production</p>
-                <div class="instagram-grid">
-                    <div class="gallery-item large">
-                        <img src="assets/IMG_9735.jpeg" alt="Gallery Photo 1" onclick="openImageZoom('assets/IMG_9735.jpeg')">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="assets/IMG_9734.jpeg" alt="Gallery Photo 2" onclick="openImageZoom('assets/IMG_9734.jpeg')">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="assets/IMG_9733.jpeg" alt="Gallery Photo 3" onclick="openImageZoom('assets/IMG_9733.jpeg')">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="assets/IMG_9732.jpeg" alt="Gallery Photo 4" onclick="openImageZoom('assets/IMG_9732.jpeg')">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="assets/IMG_9726.jpeg" alt="Gallery Photo 5" onclick="openImageZoom('assets/IMG_9726.jpeg')">
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Individual Image Zoom Modal -->
-        <div id="imageZoomModal" class="image-zoom-modal">
-            <div class="zoom-content">
-                <span class="zoom-close" onclick="closeImageZoom()">&times;</span>
-                <img id="zoomedImage" src="" alt="Zoomed Image">
-            </div>
-        </div>
         <section id="eternity-video" class="video-section">
             <div class="container">
                 <h2>Latest Music Video: <span class="pink-text">Eternity</span></h2>
@@ -253,6 +210,7 @@
                 <a href="https://linktr.ee/rebelle_music" target="_blank"><i class="fas fa-link"></i></a>
             </div>
         </div>
+        <p class="credits">Built by <a href="https://thefreewebsitewizards.com/?fbclid=PAZXh0bgNhZW0CMTEAAad0Jm-GNlXnPPJ1LVG1DBVBoUGdRHC5m3FFwUqGHjUfujAnDPDhsINN8mAv1A_aem_owWh2qpkEErFPYCqV9cPEg" target="_blank">The Free Website Wizards</a></p>
     </footer>
 
     <script src="script.js"></script>

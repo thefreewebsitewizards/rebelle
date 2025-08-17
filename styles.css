@@ -1,5 +1,13 @@
-/* Import Google Fonts for the new aesthetic */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
+/* Import Google Fonts - Chivo and Open Sans */
+@import url('https://fonts.googleapis.com/css2?family=Chivo:wght@400;700;800;900&family=Open+Sans:wght@300;400;600;700&display=swap');
+
+/* CSS Custom Properties for font families */
+:root {
+    --font-family-sans-serif: "Roboto", sans-serif;
+    --font-family-monospace: "Consolas", monospace;
+    --font-family-primary: 'Chivo', var(--font-family-sans-serif);
+    --font-family-secondary: 'Open Sans', var(--font-family-sans-serif);
+}
 
 * {
     margin: 0;
@@ -8,9 +16,8 @@
 }
 
 body {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: var(--font-family-secondary);
     color: #333;
-    /*background: linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 50%, #FFE4E1 100%);*/
     min-height: 100vh;
 }
 
@@ -21,8 +28,8 @@ body {
 }
 
 h1, h2, h3 {
-    font-family: 'Orbitron', monospace;
-    font-weight: 700;
+    font-family: var(--font-family-primary);
+    font-weight: 900;
     color: #8B008B;
     letter-spacing: 2px;
 }
@@ -37,6 +44,7 @@ h2 {
     font-size: 2.5rem;
     margin-bottom: 1.5rem;
     text-transform: uppercase;
+    font-weight: 800;
 }
 
 h3 {
@@ -129,9 +137,9 @@ p {
 }
 
 .hero {
-    background: url('assets/tbdd\ \(1\).png');
+    background: url('assets/tbdd.jpg');
     background-size: cover;
-    background-position: center;
+    background-position: top center;
     background-attachment: fixed;
     padding: 0;
     margin-top: 70px;
@@ -172,7 +180,8 @@ p {
 }
 
 .hero-description p {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: var(--font-family-secondary);
+    font-weight: bold;
     font-size: 1.1rem;
     line-height: 1.6;
     color: #ffffff;
@@ -260,7 +269,7 @@ p {
 }
 
 .hero-subtitle {
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 1.2rem;
     color: #D4AF37;
     font-weight: 600;
@@ -326,7 +335,7 @@ p {
     color: white;
     font-size: 2rem;
     font-weight: 700;
-    font-family: 'Orbitron', monospace;
+    font-family: var(--font-family-primary);
     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
     transform: rotate(-10deg);
 }
@@ -347,7 +356,7 @@ p {
     cursor: pointer;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-family: 'Rajdhani', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     min-width: 150px;
     text-align: center;
 }
@@ -645,6 +654,28 @@ p {
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
+.credits {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+.credits a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.credits a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
 .footer {
     background: #0F0F0F;
     backdrop-filter: blur(10px);
@@ -725,13 +756,6 @@ p {
         display: flex;
     }
 
-    .hero {
-        background: url('assets/tbdd.png');
-        background-size: cover;
-        background-position: center;
-        background-attachment: scroll;
-    }
-    
     .hero-content {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -811,9 +835,13 @@ p {
     }
     
     .hero {
-        background: url('assets/tbdd.png');
         background-size: cover;
-        background-position: center top;
+        background-position: 80% center;  /* Shift content 60% to the right */
+        height: 100vh;  /* Full height of the viewport */
+        display: flex;
+        align-items: center;  /* Vertically center content */
+        justify-content: flex-end;  /* Move content to the right */
+        padding: 50%;
         background-attachment: scroll;
     }
     
@@ -880,7 +908,7 @@ html {
 }
 
 .hero-title {
-    font-family: 'Orbitron', monospace;
+    font-family: 'Chivo', sans-serif;
     font-size: 4rem;
     font-weight: 900;
     color: #ffffff;
@@ -1002,7 +1030,7 @@ html {
 }
 
 .card-text p {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 1.125rem;
     line-height: 1.7;
     color: #333;
@@ -1073,11 +1101,11 @@ html {
 }
 
 .bts-gallery h2 {
-    font-family: 'Orbitron', monospace;
+    font-family: 'Chivo', sans-serif;
     font-size: 2.5rem;
     color: #8B008B;
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 0;
     font-weight: 700;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -1157,12 +1185,13 @@ html {
 }
 
 .bio-content p {
-    font-family: 'Lato', sans-serif;
+    font-family: 'Open Sans', sans-serif;
     font-size: 1.125rem;
     line-height: 1.8;
     color: #333;
     margin-bottom: 1.5rem;
     text-align: justify;
+    font-weight: 400;
 }
 
 .bio-content p:last-child {
@@ -1437,7 +1466,7 @@ html {
 }
 
 .press-link-item h3 {
-    font-family: 'Orbitron', monospace;
+    font-family: 'Chivo', sans-serif;
     font-size: 1.5rem;
     color: #8B008B;
     margin-bottom: 0.5rem;
@@ -1481,7 +1510,7 @@ html {
 }
 
 .press-section h2 {
-    font-family: 'Orbitron', monospace;
+    font-family: 'Chivo', sans-serif;
     font-size: 2.2rem;
     color: white;
     text-align: center;
@@ -1574,7 +1603,8 @@ html {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3rem;
+    gap: 0.5rem;
+
     padding: 2rem;
     width: 100%;
 }
@@ -2185,86 +2215,139 @@ html {
     }
 }
 
-/* Instagram Style Gallery Section */
-.instagram-gallery-section {
-    padding: 70px 0;
-    background: #B64D6B;
+/* About Section Styles */
+.about-section-1 {
+    background: white;
+    padding: 4rem 0;
+    width: 100%;
 }
 
-.instagram-gallery-section h2 {
+.about-container-1 {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.about-content-1 {
     text-align: center;
-    color: white;
+}
+
+.about-content-1 h2 {
+    color: #8B008B;
     font-size: 2.5rem;
-    letter-spacing: 3px;
+    margin-bottom: 2rem;
+    font-family: 'Chivo', sans-serif;
+    font-weight: 900;
 }
 
-.gallery-subtitle {
-    text-align: center;
-    font-size: 1.2rem;
-    color: #1D1D20;
-    margin-bottom: 2rem;
-    margin-top: -1rem;
-    font-style: italic;
+.about-content-1 p {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: #333;
+    margin-bottom: 1.5rem;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
     font-weight: 400;
 }
 
-.instagram-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 20px;
-    max-width: 1000px;
-    margin: 0 auto;
+.learn-more-btn {
+    display: inline-block;
+    background: linear-gradient(45deg, #FF1493, #8B008B);
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 900;
+    font-size: 1.125rem;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Open Sans', sans-serif;
 }
 
-.gallery-item {
-    position: relative;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    aspect-ratio: 1;
+.learn-more-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 20, 147, 0.6);
+    background: linear-gradient(45deg, #8B008B, #FF1493);
 }
 
-.gallery-item.large {
-    grid-column: span 2;
-    grid-row: span 2;
+/* Update Photo Slider Section Background */
+.photo-about-section {
+    min-height: 100vh;
+    padding: 2rem 0;
+    background: #B64D6B; /* Updated to use the specified color */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.gallery-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: transform 0.2s ease;
+.photo-about-container h2 {
+    color: #8B008B;
+    font-size: 2.5rem;
+    margin-bottom: 0;
+    font-family: 'Chivo', sans-serif;
+    font-weight: 900;
 }
 
-.gallery-item img:hover {
-    transform: scale(1.02);
+.photo-subtitle {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    font-style: italic;
+    font-family: 'Open Sans', sans-serif;
 }
 
-/* Responsive Design */
+.gallery-subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    font-style: italic;
+    font-family: 'Open Sans', sans-serif;
+    text-align: center;
+}
+/* Mobile Responsive */
 @media (max-width: 768px) {
-    .instagram-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
+    .about-section-1 {
+        padding: 3rem 0;
     }
     
-    .gallery-item.large {
-        grid-column: span 1;
-        grid-row: span 1;
+    .about-container-1 {
+        padding: 0 1rem;
     }
     
-    .instagram-gallery-section h2 {
+    .about-content-1 h2 {
+        font-size: 2rem;
+    }
+    
+    .about-content-1 p {
+        font-size: 1rem;
+    }
+    
+    .photo-about-container h2 {
         font-size: 2rem;
     }
 }
 
 @media (max-width: 480px) {
-    .instagram-grid {
-        grid-template-columns: 1fr;
+    .about-section-1 {
+        padding: 2rem 0;
+    }
+    
+    .about-content-1 h2 {
+        font-size: 1.8rem;
+    }
+    
+    .about-content-1 p {
+        font-size: 0.95rem;
+    }
+    
+    .learn-more-btn {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
     }
 }
-
 /* Individual Image Zoom Modal */
 .image-zoom-modal {
     display: none;
@@ -2499,8 +2582,8 @@ html {
 .contact-info-centered h2 {
     color: #8B008B;
     margin-bottom: 2rem;
-    font-family: 'Orbitron', monospace;
-    font-weight: 700;
+    font-family: 'Chivo', sans-serif;
+    font-weight: 900;
     letter-spacing: 2px;
     text-transform: uppercase;
 }
@@ -2536,8 +2619,8 @@ html {
 .contact-info-centered .social-links h3 {
     color: #8B008B;
     margin-bottom: 1.5rem;
-    font-family: 'Orbitron', monospace;
-    font-weight: 700;
+    font-family: 'Chivo', sans-serif;
+    font-weight: 900;
     letter-spacing: 2px;
     text-transform: uppercase;
 }
@@ -2591,4 +2674,46 @@ html {
     color: white;
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(217, 41, 137, 0.3);
+}
+
+/* Floating button styling */
+.floating-btn {
+    position: fixed;
+    bottom: 20px; /* Distance from the bottom of the screen */
+    right: 20px;  /* Distance from the right side of the screen */
+    background-color: #C71585;  /* Button background color */
+    color: #fff;  /* Text color */
+    padding: 15px 30px;  /* Padding inside the button */
+    font-size: 16px;  /* Font size */
+    border-radius: 30px;  /* Rounded corners */
+    text-decoration: none;  /* Remove underline from the link */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for the button */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+}
+
+.floating-btn:hover {
+    background-color: #C71585; /* Darker shade on hover */
+    transform: translateY(-5px); /* Slightly lift the button on hover */
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 768px) {
+    .floating-btn {
+        bottom: 10px; /* Adjust bottom position for smaller screens */
+        right: 10px;  /* Adjust right position for smaller screens */
+        padding: 12px 25px;  /* Smaller padding */
+        font-size: 14px;  /* Smaller font size */
+        z-index: 1000;
+    }
+}
+
+/* Very small screens like mobile portrait */
+@media (max-width: 480px) {
+    .floating-btn {
+        bottom: 15px;  /* Increase bottom space for very small screens */
+        right: 15px;   /* Increase right space for very small screens */
+        padding: 10px 20px;  /* Further reduce padding */
+        font-size: 12px;  /* Even smaller font size */
+        z-index: 1000;
+    }
 }
